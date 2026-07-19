@@ -4,11 +4,12 @@ repositories {
 }
 
 ext {
-    // Define SDK versions - debe coincidir con la app principal
+    // SDK configuration synchronized with the main application
+    // Defines compileSdk and BuildTools versions with default values (API 35)
     def cdvCompileSdkVersion = privateHelpers.hasProperty('compileSdkVersion') ? compileSdkVersion : 35
     def cdvBuildToolsVersion = privateHelpers.hasProperty('buildToolsVersion') ? buildToolsVersion : '35.0.0'
 
-    // Aplica versiones si no están definidas en el proyecto
+    // Propagates versions to the project if not already defined
     if (!project.hasProperty('compileSdkVersion')) {
         project.ext.compileSdkVersion = cdvCompileSdkVersion
     }
@@ -18,6 +19,7 @@ ext {
 }
 
 dependencies {
-    // Meta Android SDK - versión 16.0.1 requerida para compatibilidad con eventos
+    // Facebook Android SDK v16.0.1 - Soporte para App Events Analytics
+    // Proporciona integración con Meta para tracking de eventos en la aplicación
     implementation 'com.facebook.android:facebook-android-sdk:16.0.1'
 }

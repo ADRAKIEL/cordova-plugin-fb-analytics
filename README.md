@@ -1,24 +1,22 @@
-# 📘 **cordova-plugin-meta-events** (v1.3.1)
+# 📘 **cordova-plugin-fb-analytics** (v1.3.1)
 
 Plugin for Meta (Facebook) App Events for **Cordova / Ionic**  
 Compatible with **iOS + Android**, SKAdNetwork, AEM, funnel tracking, purchases, and complete automatic configuration.
 
-Compatible with:
+## Compatibility
 
-- cordova-ios **7.1.1**
-- cordova-android **14.0.1**
-- Xcode **17**
-- Android **compileSdkVersion 35**
-- FBSDK iOS **v13+**
-- Facebook Android SDK **16.0.1**
-- Compatible with Ionic Angular **7+**
-- Compatible with standard Cordova projects
-- WKWebViewOnly
+- **cordova-ios**: 7.1.1
+- **cordova-android**: 14.0.1
+- **Xcode**: 17
+- **Android compileSdkVersion**: 35
+- **FBSDK iOS**: v13+
+- **Facebook Android SDK**: 16.0.1
+- **Ionic Angular**: 7+
+- **WKWebView**: Required
 
-### Version 1.3.1 Notes
+### Version 1.3.1 Changes
 
-This version removes legacy configuration files and switches fully to dynamic preference-based configuration.  
-No manual edits required in AndroidManifest or Info.plist.
+This version removes legacy configuration files and switches fully to dynamic preference-based configuration. No manual edits required in AndroidManifest or Info.plist.
 
 ## 🚀 Features
 

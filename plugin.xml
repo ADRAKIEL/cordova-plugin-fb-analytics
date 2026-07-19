@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="cordova-plugin-meta-events" version="1.3.1"
+<plugin id="cordova-plugin-fb-analytics" version="1.3.2"
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <name>MetaEvents</name>
-  <description>Plugin custom para enviar eventos a Meta (Facebook SDK)</description>
+  <name>FBAnalytics</name>
+  <description>Modern Facebook App Events analytics plugin for Cordova/Ionic</description>
   <license>MIT</license>
 
-  <js-module src="www/meta-events.js" name="MetaEvents">
-    <clobbers target="MetaEvents" />
+  <!-- JS MODULE -->
+  <js-module src="www/fb-analytics.js" name="FBAnalytics">
+    <clobbers target="FBAnalytics" />
   </js-module>
 
   <!-- ================== iOS ================== -->
   <platform name="ios">
 
     <config-file target="config.xml" parent="/*">
-      <feature name="MetaEvents">
-        <param name="ios-package" value="MetaEvents" />
+      <feature name="FBAnalytics">
+        <param name="ios-package" value="FBAnalytics" />
       </feature>
     </config-file>
 
-    <source-file src="src/ios/MetaEvents.h" />
-    <source-file src="src/ios/MetaEvents.m" />
-    <source-file src="src/ios/AppDelegate+MetaEvents.h" />
-    <source-file src="src/ios/AppDelegate+MetaEvents.m" />
+    <source-file src="src/ios/FBAnalytics.h" />
+    <source-file src="src/ios/FBAnalytics.m" />
+    <source-file src="src/ios/AppDelegate+FBAnalytics.h" />
+    <source-file src="src/ios/AppDelegate+FBAnalytics.m" />
 
-    <!-- iOS Preferences (solo declaración, sin variables plugman) -->
+    <!-- iOS Preferences -->
     <preference name="FacebookAppID" />
     <preference name="FacebookClientToken" />
     <preference name="FacebookDisplayName" />
@@ -46,7 +47,7 @@
       </pods>
     </podspec>
 
-    <!-- Info.plist (sin placeholders, se reemplaza en runtime desde código nativo) -->
+    <!-- Info.plist placeholders -->
     <config-file target="*-Info.plist" parent="FacebookAppID">
       <string>FACEBOOK_APP_ID_PLACEHOLDER</string>
     </config-file>
@@ -84,6 +85,7 @@
       </dict>
     </config-file>
 
+    <!-- SKAdNetwork -->
     <config-file target="*-Info.plist" parent="SKAdNetworkItems">
       <array>
         <dict>
@@ -93,6 +95,7 @@
       </array>
     </config-file>
 
+    <!-- AutoLog & AdvertiserID -->
     <config-file target="*-Info.plist" parent="FacebookAutoLogAppEventsEnabled">
       <true/>
     </config-file>
@@ -111,12 +114,12 @@
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="MetaEvents">
-        <param name="android-package" value="mx.com.bupa.MetaEvents" />
+      <feature name="FBAnalytics">
+        <param name="android-package" value="com.fb.analytics.FBAnalytics" />
       </feature>
     </config-file>
 
-    <source-file src="src/android/MetaEvents.java" target-dir="src/mx/com/bupa/" />
+    <source-file src="src/android/FBAnalytics.java" target-dir="src/com/fb/analytics/" />
 
     <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
@@ -127,7 +130,7 @@
     <preference name="FacebookPrivacyPolicyURL" />
     <preference name="FacebookURLScheme" />
 
-    <!-- Manifest sin variables plugman -->
+    <!-- Manifest -->
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="FACEBOOK_APP_ID_PLACEHOLDER" />
       <meta-data android:name="com.facebook.sdk.ClientToken" android:value="FACEBOOK_CLIENT_TOKEN_PLACEHOLDER" />

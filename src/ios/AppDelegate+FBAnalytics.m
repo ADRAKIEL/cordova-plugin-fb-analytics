@@ -1,7 +1,7 @@
-#import "AppDelegate+MetaEvents.h"
+#import "AppDelegate+FBAnalytics.h"
 @import FBSDKCoreKit;
 
-@implementation AppDelegate (MetaEvents)
+@implementation AppDelegate (FBAnalytics)
 
 - (void)pluginInitialize {
     [FBSDKApplicationDelegate.sharedInstance initializeSDK];

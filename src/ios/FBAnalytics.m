@@ -1,20 +1,20 @@
-#import "MetaEvents.h"
+#import "FBAnalytics.h"
 
 @import FBSDKCoreKit;
 @import FBSDKCoreKit_Basics;
 #import <FBSDKCoreKit/FBSDKAppEvents.h>
 @import StoreKit;
 
-@implementation MetaEvents
+@implementation FBAnalytics
 
-#pragma mark - Cordova Plugin Init
-// ⭐ Inicializa el SDK de Meta de forma segura
+#pragma mark - Cordova Plugin Initialization
+// Initializes the Facebook SDK when the plugin is loaded.
 - (void)pluginInitialize {
     [FBSDKApplicationDelegate.sharedInstance initializeSDK];
 }
 
-#pragma mark - Helpers
-// Filtra parámetros válidos (NSString, NSNumber) para FBSDK
+#pragma mark - Parameter Normalization
+// Converts only valid NSString/NSNumber values to a dictionary accepted by FBSDK.
 - (NSMutableDictionary<NSString *, id> *)convertParams:(NSDictionary *)params {
     NSMutableDictionary<NSString *, id> *converted = [NSMutableDictionary dictionary];
 
@@ -33,6 +33,7 @@
 }
 
 #pragma mark - Log Event
+// Logs a standard Facebook App Event.
 - (void)logEvent:(CDVInvokedUrlCommand*)command {
 
     NSString *eventName = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -51,7 +52,6 @@
 
     NSMutableDictionary *convertedParams = [self convertParams:params];
 
-    // ⭐ SDK LEGACY → método estático
     [FBSDKAppEvents logEvent:eventName parameters:convertedParams];
 
     CDVPluginResult *result =
@@ -61,6 +61,7 @@
 }
 
 #pragma mark - Log Purchase
+// Logs a purchase event with amount, currency, and optional parameters.
 - (void)logPurchase:(CDVInvokedUrlCommand*)command {
 
     NSNumber *amount = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -83,7 +84,6 @@
 
     NSMutableDictionary *convertedParams = [self convertParams:params];
 
-    // ⭐ SDK LEGACY → método estático
     [FBSDKAppEvents logPurchase:[amount doubleValue]
                         currency:currency
                       parameters:convertedParams];
@@ -94,7 +94,8 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
-#pragma mark - Conversion Value (SKAN)
+#pragma mark - Conversion Value (SKAdNetwork)
+// SKAdNetwork conversion values are not supported in this SDK version.
 - (void)setConversionValue:(CDVInvokedUrlCommand*)command {
 
     NSNumber *value = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -107,7 +108,6 @@
         return;
     }
 
-    // ⭐ SDK LEGACY → NO SOPORTA SKAN
     CDVPluginResult *result =
     [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                       messageAsString:@"OK (SKAN not supported in this SDK version)"];
@@ -115,6 +115,7 @@
 }
 
 #pragma mark - Funnel Step
+// Logs a funnel step as a prefixed event name.
 - (void)logFunnelStep:(CDVInvokedUrlCommand*)command {
 
     NSString *stepName = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -135,7 +136,6 @@
 
     NSString *eventName = [NSString stringWithFormat:@"funnel_%@", stepName];
 
-    // ⭐ SDK LEGACY → método estático
     [FBSDKAppEvents logEvent:eventName parameters:convertedParams];
 
     CDVPluginResult *result =

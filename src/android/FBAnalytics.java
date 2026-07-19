@@ -1,4 +1,4 @@
-package mx.com.bupa;
+package com.fb.analytics;
 
 import org.apache.cordova.*;
 import org.json.*;
@@ -13,18 +13,15 @@ import com.facebook.appevents.AppEventsLogger;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-public class MetaEvents extends CordovaPlugin {
+public class FBAnalytics extends CordovaPlugin {
 
     private AppEventsLogger logger;
 
     @Override
     public void pluginInitialize() {
-
-        // Inicializa el logger de eventos de Meta
         Context context = cordova.getActivity().getApplicationContext();
         logger = AppEventsLogger.newLogger(context);
 
-        // Reemplazo nativo de valores del Manifest usando preferencias del config.xml
         try {
             String facebookAppId = preferences.getString("FacebookAppID", "");
             String facebookClientToken = preferences.getString("FacebookClientToken", "");
@@ -152,12 +149,12 @@ public class MetaEvents extends CordovaPlugin {
         }
     }
 
-    private void sendOk(String mensaje, CallbackContext callbackContext) {
-        callbackContext.success("OK: " + mensaje);
+    private void sendOk(String message, CallbackContext callbackContext) {
+        callbackContext.success("OK: " + message);
     }
 
-    private void sendError(String mensaje, CallbackContext callbackContext) {
-        callbackContext.error("ERROR: " + mensaje);
+    private void sendError(String message, CallbackContext callbackContext) {
+        callbackContext.error("ERROR: " + message);
     }
 
     private Bundle convertToBundle(JSONObject json) {

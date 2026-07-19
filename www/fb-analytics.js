@@ -1,23 +1,23 @@
 const exec = require("cordova/exec");
 
-// Garantiza que success/error siempre sean funciones válidas
+// Ensure success/error callbacks are always valid functions
 function safeCallback(cb) {
   return typeof cb === "function" ? cb : function () {};
 }
 
-// Normaliza parámetros para evitar que iOS reciba null/undefined
+// Normalize params to avoid null/undefined issues on iOS
 function normalizeParams(params) {
   return params && typeof params === "object" ? params : {};
 }
 
-const MetaEvents = {
+const FBAnalytics = {
   logEvent(name, params, success, error) {
     exec(
       safeCallback(success),
       safeCallback(error),
-      "MetaEvents",
+      "FBAnalytics",
       "logEvent",
-      [name, normalizeParams(params)]
+      [name, normalizeParams(params)],
     );
   },
 
@@ -25,9 +25,9 @@ const MetaEvents = {
     exec(
       safeCallback(success),
       safeCallback(error),
-      "MetaEvents",
+      "FBAnalytics",
       "logPurchase",
-      [amount, currency, normalizeParams(params)]
+      [amount, currency, normalizeParams(params)],
     );
   },
 
@@ -35,9 +35,9 @@ const MetaEvents = {
     exec(
       safeCallback(success),
       safeCallback(error),
-      "MetaEvents",
+      "FBAnalytics",
       "setConversionValue",
-      [value]
+      [value],
     );
   },
 
@@ -45,11 +45,11 @@ const MetaEvents = {
     exec(
       safeCallback(success),
       safeCallback(error),
-      "MetaEvents",
+      "FBAnalytics",
       "logFunnelStep",
-      [stepName, normalizeParams(params)]
+      [stepName, normalizeParams(params)],
     );
   },
 };
 
-module.exports = MetaEvents;
+module.exports = FBAnalytics;
