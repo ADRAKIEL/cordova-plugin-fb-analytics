@@ -1,7 +1,7 @@
 # 📘 **cordova-plugin-fb-analytics** (v1.3.1)
 
 Plugin for Meta (Facebook) App Events for **Cordova / Ionic**  
-Compatible with **iOS + Android**, SKAdNetwork, AEM, funnel tracking, purchases, and complete automatic configuration.
+Compatible with **iOS + Android**, SKAdNetwork, AEM, funnel tracking, purchases, and variable-based configuration.
 
 ## Compatibility
 
@@ -16,14 +16,14 @@ Compatible with **iOS + Android**, SKAdNetwork, AEM, funnel tracking, purchases,
 
 ### Version 1.3.1 Changes
 
-This version removes legacy configuration files and switches fully to dynamic preference-based configuration. No manual edits required in AndroidManifest or Info.plist.
+This version removes legacy configuration files and switches fully to installation variable-based configuration. No manual edits required in AndroidManifest or Info.plist when variables are provided.
 
 ## 🚀 Features
 
 ### **iOS**
 
 - Automatic Meta SDK initialization
-- Automatic Info.plist injection
+- Automatic Info.plist injection based on installation variables
 - SKAdNetwork ConversionValue
 - AEM (Aggregated Event Measurement)
 - Deep link handling (modern + legacy)
@@ -56,7 +56,7 @@ For this reason, installation must include all required Meta parameters.
 ## Install from local source
 
 ```bash
-cordova plugin add ../dev/cordova-plugin-meta-events \
+cordova plugin add ../dev/cordova-plugin-fb-analytics \
   --variable FACEBOOKAPPID="YOUR_APP_ID" \
   --variable FACEBOOKCLIENTTOKEN="YOUR_CLIENT_TOKEN" \
   --variable FACEBOOKDISPLAYNAME="YOUR_APP_NAME" \
@@ -69,7 +69,7 @@ cordova plugin add ../dev/cordova-plugin-meta-events \
 ## Install from npm
 
 ```bash
-cordova plugin add cordova-plugin-meta-events \
+cordova plugin add cordova-plugin-fb-analytics \
   --variable FACEBOOKAPPID="YOUR_APP_ID" \
   --variable FACEBOOKCLIENTTOKEN="YOUR_CLIENT_TOKEN" \
   --variable FACEBOOKDISPLAYNAME="YOUR_APP_NAME" \
@@ -82,8 +82,8 @@ cordova plugin add cordova-plugin-meta-events \
 ## Update the plugin
 
 ```bash
-cordova plugin remove cordova-plugin-meta-events
-cordova plugin add cordova-plugin-meta-events \
+cordova plugin remove cordova-plugin-fb-analytics
+cordova plugin add cordova-plugin-fb-analytics \
   --variable FACEBOOKAPPID="..." \
   --variable FACEBOOKCLIENTTOKEN="..." \
   --variable FACEBOOKDISPLAYNAME="..." \
@@ -107,34 +107,38 @@ cordova plugin add cordova-plugin-meta-events \
 - iOS 13+ recommended
 - Android 8+
 
-# 🧩 iOS Configuration (Automatic)
+# 🧩 iOS Configuration (From Installation Variables)
 
-No manual edits required.
-The plugin injects all required Meta keys into **Info.plist**:
+No manual edits required **when installation variables are provided**.
+The plugin injects Meta keys into **Info.plist** based on the variables passed at install time:
 
-| Key                           | Value                       |
-| ----------------------------- | --------------------------- |
-| FacebookAppID                 | `YOUR_APP_ID`               |
-| FacebookClientToken           | `YOUR_CLIENT_TOKEN`         |
-| FacebookDisplayName           | YOUR_APP_NAME               |
-| URL Scheme                    | `fbYOUR_APP_ID`             |
-| SKAdNetworkIdentifier         | `YOUR_SKADNETWORK_ID`       |
-| LSApplicationQueriesSchemes   | `fbapi`, `fb-messenger-api` |
-| NSPrivacyPolicyURL            | YOUR_PRIVACY_POLICY_URL     |
-| AutoLog App Events            | ✅                          |
-| AdvertiserIDCollectionEnabled | ✅                          |
+| Key                           | Value (from install variable) |
+| ----------------------------- | ----------------------------- |
+| FacebookAppID                 | `FACEBOOKAPPID`               |
+| FacebookClientToken           | `FACEBOOKCLIENTTOKEN`         |
+| FacebookDisplayName           | `FACEBOOKDISPLAYNAME`         |
+| URL Scheme                    | `FACEBOOKURLSCHEME`           |
+| NSPrivacyPolicyURL            | `FACEBOOKPRIVACYPOLICYURL`    |
+| AutoLog App Events            | `FACEBOOKAUTOLOGAPPEVENTSENABLED` |
+| AdvertiserIDCollectionEnabled | `FACEBOOKADVERTISERIDCOLLECTIONENABLED` |
 
-Also enables:
+The plugin also enables automatically:
 
 - AEM
-- SKAdNetwork
+- SKAdNetwork (framework only)
 - SceneDelegate
 - Deep links
 - AppEvents initialization
 
-# 🤖 Android Configuration (Automatic)
+# ⚠️ Important
 
-Injected into AndroidManifest:
+- Plugin configuration is **not automatic without variables**.
+- You must install (or reinstall) the plugin with all required `--variable` values.
+- The plugin then writes those values into `Info.plist` and `AndroidManifest.xml`.
+
+# 🤖 Android Configuration (From Installation Variables)
+
+Injected into AndroidManifest based on installation variables:
 
 | Key                            | Value             |
 | ------------------------------ | ----------------- |
@@ -160,13 +164,13 @@ Safe parameter conversion supports:
 Global object:
 
 ```javascript
-MetaEvents;
+FBAnalytics;
 ```
 
 ### 📌 Log a custom event
 
 ```javascript
-MetaEvents.logEvent("quote_started", {
+FBAnalytics.logEvent("quote_started", {
   plan: "Premium",
   origin: "home",
 });
@@ -175,13 +179,13 @@ MetaEvents.logEvent("quote_started", {
 ### 💰 Log a purchase
 
 ```javascript
-MetaEvents.logPurchase("1999.0", "MXN", { plan: "Premium", channel: "app" });
+FBAnalytics.logPurchase("1999.0", "MXN", { plan: "Premium", channel: "app" });
 ```
 
 ### 🔀 Log a funnel step
 
 ```javascript
-MetaEvents.logFunnelStep("registration_completed", {
+FBAnalytics.logFunnelStep("registration_completed", {
   method: "email",
 });
 ```
@@ -189,30 +193,33 @@ MetaEvents.logFunnelStep("registration_completed", {
 ### 🎯 Update Conversion Value (iOS SKAdNetwork)
 
 ```javascript
-MetaEvents.setConversionValue(10);
+FBAnalytics.setConversionValue(10);
 ```
 
 # 📁 Plugin Structure
 
 ```
-cordova-plugin-meta-events/
+cordova-plugin-fb-analytics/
 │
 ├── plugin.xml
 ├── package.json
 ├── README.md
 ├── CHANGELOG.md
 │
+├── docs/
+│   └── index.html
+│
 ├── www/
-│   └── meta-events.js
+│   └── fb-analytics.js
 │
 └── src/
     ├── ios/
-    │   ├── MetaEvents.h
-    │   ├── MetaEvents.m
-    │   ├── AppDelegate+MetaEvents.h
-    │   └── AppDelegate+MetaEvents.m
+    │   ├── FBAnalytics.h
+    │   ├── FBAnalytics.m
+    │   ├── AppDelegate+FBAnalytics.h
+    │   └── AppDelegate+FBAnalytics.m
     └── android/
-        ├── MetaEvents.java
+        ├── FBAnalytics.java
         └── build.gradle
 ```
 
@@ -236,7 +243,7 @@ cordova plugin list
 - Ensure AppDelegate+MetaEvents exists in:
 
 ```
-platforms/ios/<APP>/Plugins/cordova-plugin-meta-events/
+platforms/ios/<APP>/Plugins/cordova-plugin-fb-analytics/
 ```
 
 - Wait up to **15 minutes** for events to appear.
