@@ -1,0 +1,23 @@
+repositories {
+    google()
+    mavenCentral()
+}
+
+ext {
+    // Define SDK versions - debe coincidir con la app principal
+    def cdvCompileSdkVersion = privateHelpers.hasProperty('compileSdkVersion') ? compileSdkVersion : 35
+    def cdvBuildToolsVersion = privateHelpers.hasProperty('buildToolsVersion') ? buildToolsVersion : '35.0.0'
+
+    // Aplica versiones si no están definidas en el proyecto
+    if (!project.hasProperty('compileSdkVersion')) {
+        project.ext.compileSdkVersion = cdvCompileSdkVersion
+    }
+    if (!project.hasProperty('buildToolsVersion')) {
+        project.ext.buildToolsVersion = cdvBuildToolsVersion
+    }
+}
+
+dependencies {
+    // Meta Android SDK - versión 16.0.1 requerida para compatibilidad con eventos
+    implementation 'com.facebook.android:facebook-android-sdk:16.0.1'
+}

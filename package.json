@@ -1,0 +1,24 @@
+{
+  "name": "cordova-plugin-meta-events",
+  "version": "1.3.2",
+  "description": "Meta (Facebook) App Events plugin for Cordova",
+  "cordova": {
+    "id": "cordova-plugin-meta-events",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "meta",
+    "facebook",
+    "events",
+    "analytics",
+    "ios",
+    "skadnetwork",
+    "aem"
+  ],
+  "author": "Adrakiel (Ismael Esquinca)",
+  "license": "MIT"
+}

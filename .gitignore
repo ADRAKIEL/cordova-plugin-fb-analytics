@@ -1,0 +1,66 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cordova / Ionic (no deben publicarse en un plugin)
+platforms/
+plugins/
+hooks/
+merges/
+res/
+
+# Android build system
+src/android/.gradle/
+src/android/.idea/
+src/android/local.properties
+src/android/build/
+src/android/captures/
+src/android/*.iml
+
+# Android Studio
+.gradle/
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# iOS / Xcode
+src/ios/build/
+src/ios/DerivedData/
+src/ios/*.xcworkspace/
+src/ios/*.xcuserdata/
+src/ios/*.xcuserstate
+src/ios/*.moved-aside
+src/ios/*.pbxuser
+src/ios/*.mode1v3
+src/ios/*.mode2v3
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# HTML generado accidentalmente
+README.html
+
+# Coverage / tests (por si agregas)
+coverage/
+jest-cache/
+jest-temp/
+

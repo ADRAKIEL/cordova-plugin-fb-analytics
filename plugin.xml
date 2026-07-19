@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="cordova-plugin-meta-events" version="1.3.1"
+  xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <name>MetaEvents</name>
+  <description>Plugin custom para enviar eventos a Meta (Facebook SDK)</description>
+  <license>MIT</license>
+
+  <js-module src="www/meta-events.js" name="MetaEvents">
+    <clobbers target="MetaEvents" />
+  </js-module>
+
+  <!-- ================== iOS ================== -->
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="MetaEvents">
+        <param name="ios-package" value="MetaEvents" />
+      </feature>
+    </config-file>
+
+    <source-file src="src/ios/MetaEvents.h" />
+    <source-file src="src/ios/MetaEvents.m" />
+    <source-file src="src/ios/AppDelegate+MetaEvents.h" />
+    <source-file src="src/ios/AppDelegate+MetaEvents.m" />
+
+    <!-- iOS Preferences (solo declaración, sin variables plugman) -->
+    <preference name="FacebookAppID" />
+    <preference name="FacebookClientToken" />
+    <preference name="FacebookDisplayName" />
+    <preference name="FacebookURLScheme" />
+    <preference name="FacebookPrivacyPolicyURL" />
+    <preference name="FacebookAutoLogAppEventsEnabled" />
+    <preference name="FacebookAdvertiserIDCollectionEnabled" />
+
+    <!-- CocoaPods Dependencies -->
+    <podspec>
+      <config>
+        <source url="https://github.com/CocoaPods/Specs.git" />
+      </config>
+      <pods use-frameworks="true">
+        <pod name="FBSDKCoreKit" spec="~> 11.0" />
+        <pod name="FBSDKLoginKit" spec="~> 11.0" />
+        <pod name="FBSDKShareKit" spec="~> 11.0" />
+      </pods>
+    </podspec>
+
+    <!-- Info.plist (sin placeholders, se reemplaza en runtime desde código nativo) -->
+    <config-file target="*-Info.plist" parent="FacebookAppID">
+      <string>FACEBOOK_APP_ID_PLACEHOLDER</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="FacebookClientToken">
+      <string>FACEBOOK_CLIENT_TOKEN_PLACEHOLDER</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="FacebookDisplayName">
+      <string>FACEBOOK_DISPLAY_NAME_PLACEHOLDER</string>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+      <array>
+        <dict>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>FACEBOOK_URL_SCHEME_PLACEHOLDER</string>
+          </array>
+        </dict>
+      </array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+      <array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+      </array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="UIApplicationSceneManifest">
+      <dict>
+        <key>UIApplicationSupportsMultipleScenes</key>
+        <false/>
+      </dict>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="SKAdNetworkItems">
+      <array>
+        <dict>
+          <key>SKAdNetworkIdentifier</key>
+          <string>cstr6suwn9.skadnetwork</string>
+        </dict>
+      </array>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="FacebookAutoLogAppEventsEnabled">
+      <true/>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="FacebookAdvertiserIDCollectionEnabled">
+      <true/>
+    </config-file>
+
+    <config-file target="*-Info.plist" parent="NSPrivacyPolicyURL">
+      <string>FACEBOOK_PRIVACY_POLICY_PLACEHOLDER</string>
+    </config-file>
+
+  </platform>
+
+  <!-- ================== ANDROID ================== -->
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="MetaEvents">
+        <param name="android-package" value="mx.com.bupa.MetaEvents" />
+      </feature>
+    </config-file>
+
+    <source-file src="src/android/MetaEvents.java" target-dir="src/mx/com/bupa/" />
+
+    <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+
+    <!-- Android Preferences -->
+    <preference name="FacebookAppID" />
+    <preference name="FacebookClientToken" />
+    <preference name="FacebookDisplayName" />
+    <preference name="FacebookPrivacyPolicyURL" />
+    <preference name="FacebookURLScheme" />
+
+    <!-- Manifest sin variables plugman -->
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="FACEBOOK_APP_ID_PLACEHOLDER" />
+      <meta-data android:name="com.facebook.sdk.ClientToken" android:value="FACEBOOK_CLIENT_TOKEN_PLACEHOLDER" />
+    </config-file>
+
+  </platform>
+
+</plugin>
