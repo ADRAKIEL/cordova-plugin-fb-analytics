@@ -5,6 +5,17 @@ All notable changes to **cordova-plugin-fb-analytics** will be documented in thi
 The versioning scheme adheres to [Semantic Versioning 2.0.0](https://semver.org/), with major.minor.patch format.
 
 ---
+## [1.3.3] - 2026-07-19
+
+### Documentation
+- Updated README to reflect the correct plugin name: `cordova-plugin-fb-analytics`.
+- Corrected installation commands to use `cordova-plugin-fb-analytics` instead of the old `cordova-plugin-meta-events`.
+- Updated JavaScript API references from `MetaEvents` to `FBAnalytics`.
+- Clarified iOS and Android configuration as variable-based injection.
+- Updated AndroidManifest and Info.plist documentation tables to match the actual variables used by the plugin.
+- Fixed troubleshooting paths and plugin directory names.
+- Updated plugin structure section with the correct native class names (FBAnalytics.java, FBAnalytics.m, etc.).
+- Removed remaining legacy references to MetaEvents.
 
 ## [1.3.1] - 2026-07-18
 
