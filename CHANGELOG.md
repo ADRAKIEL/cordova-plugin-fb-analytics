@@ -5,6 +5,19 @@ All notable changes to **cordova-plugin-fb-analytics** will be documented in thi
 The versioning scheme adheres to [Semantic Versioning 2.0.0](https://semver.org/), with major.minor.patch format.
 
 ---
+## [1.3.5] - 2026-07-30
+
+### Changed
+
+- Refactored iOS SDK initialization with dedicated `AppDelegate+FBAnalytics.h` category.
+- Simplified AppDelegate integration to use `FBSDKApplicationDelegate.sharedInstance initializeSDK` in `didFinishLaunchingWithOptions:`.
+- Removed redundant category implementation overhead for cleaner initialization flow.
+
+### Fixed
+
+- Optimized iOS SDK initialization sequencing for improved app startup performance.
+
+---
 ## [1.3.4] - 2026-07-29
 
 ### Changed

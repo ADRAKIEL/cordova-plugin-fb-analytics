@@ -3,8 +3,12 @@
 
 @implementation AppDelegate (FBAnalytics)
 
-- (void)pluginInitialize {
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
     [FBSDKApplicationDelegate.sharedInstance initializeSDK];
+
+    return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 @end
