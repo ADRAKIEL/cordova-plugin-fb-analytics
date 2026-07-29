@@ -1,8 +1,6 @@
 #import "FBAnalytics.h"
 
 @import FBSDKCoreKit;
-@import FBSDKCoreKit_Basics;
-#import <FBSDKCoreKit/FBSDKAppEvents.h>
 @import StoreKit;
 
 @implementation FBAnalytics
@@ -52,7 +50,8 @@
 
     NSMutableDictionary *convertedParams = [self convertParams:params];
 
-    [FBSDKAppEvents logEvent:eventName parameters:convertedParams];
+    // ⭐ FBSDK 13+ → singleton instance
+    [[FBSDKAppEvents shared] logEvent:eventName parameters:convertedParams];
 
     CDVPluginResult *result =
     [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
@@ -84,9 +83,10 @@
 
     NSMutableDictionary *convertedParams = [self convertParams:params];
 
-    [FBSDKAppEvents logPurchase:[amount doubleValue]
-                        currency:currency
-                      parameters:convertedParams];
+    // ⭐ FBSDK 13+ → singleton instance
+    [[FBSDKAppEvents shared] logPurchase:[amount doubleValue]
+                                 currency:currency
+                               parameters:convertedParams];
 
     CDVPluginResult *result =
     [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
@@ -136,7 +136,8 @@
 
     NSString *eventName = [NSString stringWithFormat:@"funnel_%@", stepName];
 
-    [FBSDKAppEvents logEvent:eventName parameters:convertedParams];
+    // ⭐ FBSDK 13+ → singleton instance
+    [[FBSDKAppEvents shared] logEvent:eventName parameters:convertedParams];
 
     CDVPluginResult *result =
     [CDVPluginResult resultWithStatus:CDVCommandStatus_OK

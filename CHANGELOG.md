@@ -5,6 +5,31 @@ All notable changes to **cordova-plugin-fb-analytics** will be documented in thi
 The versioning scheme adheres to [Semantic Versioning 2.0.0](https://semver.org/), with major.minor.patch format.
 
 ---
+## [1.3.4] - 2026-07-29
+
+### Changed
+
+- Updated iOS native implementation (`FBAnalytics.m`) to fully support **FBSDK 13.x**.
+- Replaced deprecated static AppEvents API calls with the modern singleton-based API:
+
+- `logEvent:` → `[[FBSDKAppEvents shared] logEvent:...]`
+- `logPurchase:` → `[[FBSDKAppEvents shared] logPurchase:...]`
+- Funnel event logging updated to use the singleton instance.
+- Removed redundant imports (`FBSDKCoreKit_Basics`, direct `FBSDKAppEvents.h` include).
+- Ensured plugin initialization uses `FBSDKApplicationDelegate.sharedInstance initializeSDK`.
+- Improved parameter conversion consistency for iOS event logging.
+
+### Fixed
+
+- Resolved build errors caused by removed static AppEvents methods in FBSDK 13.x.
+- Eliminated warnings related to deprecated Facebook SDK usage in Xcode 17.
+
+### Notes
+
+- This update aligns the plugin with the modern Meta SDK architecture.
+- No changes required in JavaScript API or Android implementation.
+
+---
 ## [1.3.3] - 2026-07-19
 
 ### Documentation
