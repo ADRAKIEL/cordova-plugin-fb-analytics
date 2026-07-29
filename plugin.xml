@@ -41,9 +41,9 @@
         <source url="https://github.com/CocoaPods/Specs.git" />
       </config>
       <pods use-frameworks="true">
-        <pod name="FBSDKCoreKit" spec="~> 11.0" />
-        <pod name="FBSDKLoginKit" spec="~> 11.0" />
-        <pod name="FBSDKShareKit" spec="~> 11.0" />
+        <pod name="FBSDKCoreKit" spec="~> 13.0" />
+        <pod name="FBSDKLoginKit" spec="~> 13.0" />
+        <pod name="FBSDKShareKit" spec="~> 13.0" />
       </pods>
     </podspec>
 
