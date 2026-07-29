@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-fb-analytics",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Modern Facebook App Events analytics plugin for Cordova/Ionic with support for events, purchases, funnels, and SKAdNetwork conversion values.",
   "cordova": {
     "id": "cordova-plugin-fb-analytics",
