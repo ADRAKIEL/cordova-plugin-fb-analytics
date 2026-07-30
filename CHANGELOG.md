@@ -5,6 +5,20 @@ All notable changes to **cordova-plugin-fb-analytics** will be documented in thi
 The versioning scheme adheres to [Semantic Versioning 2.0.0](https://semver.org/), with major.minor.patch format.
 
 ---
+## [1.3.6] - 2026-07-31
+
+### Fixed
+
+- Android: fixed SDK initialization using `FacebookSdk.sdkInitialize()` and `AppEventsLogger.activateApp()`, ensuring the logger is ready at startup.
+- Android: removed non-functional metaData runtime modifications to avoid inconsistent behavior across devices.
+- iOS: verified plugin loading and stabilized initialization without affecting event flow or SDK compatibility.
+- Improved Bundle parameter conversion to prevent data loss in logEvent, logPurchase, and funnel step tracking.
+
+### Notes
+
+- Stable and consistent integration across both platforms.
+
+---
 ## [1.3.5] - 2026-07-30
 
 ### Changed

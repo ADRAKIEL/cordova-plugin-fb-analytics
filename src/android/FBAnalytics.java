@@ -5,9 +5,8 @@ import org.json.*;
 
 import android.os.Bundle;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 
+import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 import java.math.BigDecimal;
@@ -19,27 +18,17 @@ public class FBAnalytics extends CordovaPlugin {
 
     @Override
     public void pluginInitialize() {
+
         Context context = cordova.getActivity().getApplicationContext();
+
+        // ⭐ Inicializa el SDK de Meta
+        FacebookSdk.sdkInitialize(context);
+
+        // ⭐ Activa AppEvents
+        AppEventsLogger.activateApp(context);
+
+        // ⭐ Inicializa el logger
         logger = AppEventsLogger.newLogger(context);
-
-        try {
-            String facebookAppId = preferences.getString("FacebookAppID", "");
-            String facebookClientToken = preferences.getString("FacebookClientToken", "");
-
-            PackageManager pm = context.getPackageManager();
-            ApplicationInfo ai = pm.getApplicationInfo(
-                    context.getPackageName(),
-                    PackageManager.GET_META_DATA
-            );
-
-            if (ai.metaData != null) {
-                ai.metaData.putString("com.facebook.sdk.ApplicationId", facebookAppId);
-                ai.metaData.putString("com.facebook.sdk.ClientToken", facebookClientToken);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -182,8 +171,7 @@ public class FBAnalytics extends CordovaPlugin {
                     bundle.putBoolean(key, (Boolean) value);
                 }
 
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) {}
         }
 
         return bundle;
