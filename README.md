@@ -1,4 +1,4 @@
-# 📘 **cordova-plugin-fb-analytics** (v1.3.6)
+# 📘 **cordova-plugin-fb-analytics** (v1.3.8)
 
 Plugin for Meta (Facebook) App Events for **Cordova / Ionic**  
 Compatible with **iOS + Android**, SKAdNetwork, AEM, funnel tracking, purchases, and variable-based configuration.
@@ -14,22 +14,16 @@ Compatible with **iOS + Android**, SKAdNetwork, AEM, funnel tracking, purchases,
 - **Ionic Angular**: 7+
 - **WKWebView**: Required
 
-### Version 1.3.6 Changes
+### Version 1.3.8 Changes
 
-**Fix: Meta Events integration adjustments for iOS and Android**
-- **Android**: Fixed SDK initialization using `FacebookSdk.sdkInitialize()` and `AppEventsLogger.activateApp()`, ensuring the logger is ready at startup.
-- **Android**: Removed non-functional metaData runtime modifications to avoid inconsistent behavior across devices.
-- **iOS**: Verified plugin loading and stabilized initialization without affecting event flow or SDK compatibility.
-- **Bundle Parameters**: Improved conversion to prevent data loss in `logEvent`, `logPurchase`, and funnel step tracking.
-- Stable and consistent integration across both platforms.
-
-### Version 1.3.5 Changes
-
-Enhanced iOS AppDelegate integration with streamlined initialization. Updated **AppDelegate+FBAnalytics** to use modern singleton pattern with proper import statements and initialization flow.
-
-### Version 1.3.4 Changes
-
-Updated iOS native implementation to fully support **FBSDK 13.x**. Replaced deprecated static AppEvents API calls with modern singleton-based API. Resolved build errors and eliminated warnings related to deprecated Facebook SDK usage in Xcode 17. No changes required in JavaScript API or Android implementation.
+**Feat: Enhanced AppEvents activation and parameter normalization for iOS/Android**
+- **iOS**: Updated `AppDelegate+FBAnalytics.m` to activate AppEvents on `applicationDidBecomeActive` for reliable event tracking.
+- **iOS**: Unified `FBAnalytics.h` method signatures for consistency across all public methods.
+- **iOS**: Refactored `FBAnalytics.m` with parameter validation and dictionary normalization to ensure data integrity.
+- **Android**: Updated `FBAnalytics.java` with proper SDK initialization using Application context and consistent logger setup.
+- **Android**: Improved `activateApp` using Application reference for reliable initialization.
+- **JavaScript**: Synced `fb-analytics.js` with safe callbacks and parameter normalization across all API methods.
+- Consistent behavior across iOS, Android, and JavaScript layers.
 
 ## 🚀 Features
 

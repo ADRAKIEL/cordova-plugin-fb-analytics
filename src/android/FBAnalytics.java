@@ -5,6 +5,7 @@ import org.json.*;
 
 import android.os.Bundle;
 import android.content.Context;
+import android.app.Application;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -21,13 +22,11 @@ public class FBAnalytics extends CordovaPlugin {
 
         Context context = cordova.getActivity().getApplicationContext();
 
-        // ⭐ Inicializa el SDK de Meta
         FacebookSdk.sdkInitialize(context);
 
-        // ⭐ Activa AppEvents
-        AppEventsLogger.activateApp(context);
+        Application application = cordova.getActivity().getApplication();
+        AppEventsLogger.activateApp(application);
 
-        // ⭐ Inicializa el logger
         logger = AppEventsLogger.newLogger(context);
     }
 

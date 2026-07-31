@@ -1,11 +1,9 @@
 const exec = require("cordova/exec");
 
-// Ensure success/error callbacks are always valid functions
 function safeCallback(cb) {
   return typeof cb === "function" ? cb : function () {};
 }
 
-// Normalize params to avoid null/undefined issues on iOS
 function normalizeParams(params) {
   return params && typeof params === "object" ? params : {};
 }
@@ -17,7 +15,7 @@ const FBAnalytics = {
       safeCallback(error),
       "FBAnalytics",
       "logEvent",
-      [name, normalizeParams(params)],
+      [name, normalizeParams(params)]
     );
   },
 
@@ -27,7 +25,7 @@ const FBAnalytics = {
       safeCallback(error),
       "FBAnalytics",
       "logPurchase",
-      [amount, currency, normalizeParams(params)],
+      [amount, currency, normalizeParams(params)]
     );
   },
 
@@ -37,7 +35,7 @@ const FBAnalytics = {
       safeCallback(error),
       "FBAnalytics",
       "setConversionValue",
-      [value],
+      [value]
     );
   },
 
@@ -47,7 +45,7 @@ const FBAnalytics = {
       safeCallback(error),
       "FBAnalytics",
       "logFunnelStep",
-      [stepName, normalizeParams(params)],
+      [stepName, normalizeParams(params)]
     );
   },
 };

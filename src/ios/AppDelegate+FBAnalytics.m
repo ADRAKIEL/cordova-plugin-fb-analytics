@@ -11,4 +11,8 @@
     return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [FBSDKAppEvents.shared activateApp];
+}
+
 @end

@@ -5,6 +5,42 @@ All notable changes to **cordova-plugin-fb-analytics** will be documented in thi
 The versioning scheme adheres to [Semantic Versioning 2.0.0](https://semver.org/), with major.minor.patch format.
 
 ---
+## [1.3.8] - 2026-08-02
+
+### Changed
+
+- Updated `AppDelegate+FBAnalytics.m` to activate AppEvents on `applicationDidBecomeActive` for improved event tracking lifecycle.
+- Unified `FBAnalytics.h` method signatures for consistency across iOS implementation.
+- Refactored `FBAnalytics.m` with enhanced parameter validation and dictionary normalization.
+- Updated `FBAnalytics.java` with proper SDK initialization and consistent logger setup using Application context.
+- Synced `fb-analytics.js` with safe callbacks and parameter normalization for improved reliability.
+
+### Fixed
+
+- Improved consistency between iOS and Android parameter handling.
+- Enhanced callback safety in JavaScript bridge implementation.
+
+### Notes
+
+- Synchronized implementation across all platform layers for unified behavior.
+
+---
+## [1.3.7] - 2026-08-01
+
+### Added
+
+- Initial version bump for iOS/Android analytics synchronization.
+
+### Changed
+
+- Prepared foundation for unified FBAnalytics plugin architecture across platforms.
+- Established baseline for AppEvents lifecycle management integration.
+
+### Notes
+
+- Transitional release aligning iOS and Android implementations.
+
+---
 ## [1.3.6] - 2026-07-31
 
 ### Fixed

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin id="cordova-plugin-fb-analytics" version="1.3.6"
+<plugin id="cordova-plugin-fb-analytics" version="1.3.8"
   xmlns="http://apache.org/cordova/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -7,12 +7,10 @@
   <description>Modern Facebook App Events analytics plugin for Cordova/Ionic</description>
   <license>MIT</license>
 
-  <!-- JS MODULE -->
   <js-module src="www/fb-analytics.js" name="FBAnalytics">
     <clobbers target="FBAnalytics" />
   </js-module>
 
-  <!-- ================== iOS ================== -->
   <platform name="ios">
 
     <config-file target="config.xml" parent="/*">
@@ -26,16 +24,14 @@
     <source-file src="src/ios/AppDelegate+FBAnalytics.h" />
     <source-file src="src/ios/AppDelegate+FBAnalytics.m" />
 
-    <!-- iOS Preferences -->
-    <preference name="FacebookAppID" />
-    <preference name="FacebookClientToken" />
-    <preference name="FacebookDisplayName" />
-    <preference name="FacebookURLScheme" />
-    <preference name="FacebookPrivacyPolicyURL" />
-    <preference name="FacebookAutoLogAppEventsEnabled" />
-    <preference name="FacebookAdvertiserIDCollectionEnabled" />
+    <preference name="FACEBOOKAPPID" />
+    <preference name="FACEBOOKCLIENTTOKEN" />
+    <preference name="FACEBOOKDISPLAYNAME" />
+    <preference name="FACEBOOKURLSCHEME" />
+    <preference name="FACEBOOKPRIVACYPOLICYURL" />
+    <preference name="FACEBOOKAUTOLOGAPPEVENTSENABLED" />
+    <preference name="FACEBOOKADVERTISERIDCOLLECTIONENABLED" />
 
-    <!-- CocoaPods Dependencies -->
     <podspec>
       <config>
         <source url="https://github.com/CocoaPods/Specs.git" />
@@ -47,17 +43,16 @@
       </pods>
     </podspec>
 
-    <!-- Info.plist placeholders -->
     <config-file target="*-Info.plist" parent="FacebookAppID">
-      <string>FACEBOOK_APP_ID_PLACEHOLDER</string>
+      <string>$FACEBOOKAPPID</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="FacebookClientToken">
-      <string>FACEBOOK_CLIENT_TOKEN_PLACEHOLDER</string>
+      <string>$FACEBOOKCLIENTTOKEN</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="FacebookDisplayName">
-      <string>FACEBOOK_DISPLAY_NAME_PLACEHOLDER</string>
+      <string>$FACEBOOKDISPLAYNAME</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="CFBundleURLTypes">
@@ -65,7 +60,7 @@
         <dict>
           <key>CFBundleURLSchemes</key>
           <array>
-            <string>FACEBOOK_URL_SCHEME_PLACEHOLDER</string>
+            <string>$FACEBOOKURLSCHEME</string>
           </array>
         </dict>
       </array>
@@ -85,7 +80,6 @@
       </dict>
     </config-file>
 
-    <!-- SKAdNetwork -->
     <config-file target="*-Info.plist" parent="SKAdNetworkItems">
       <array>
         <dict>
@@ -95,7 +89,6 @@
       </array>
     </config-file>
 
-    <!-- AutoLog & AdvertiserID -->
     <config-file target="*-Info.plist" parent="FacebookAutoLogAppEventsEnabled">
       <true/>
     </config-file>
@@ -105,12 +98,11 @@
     </config-file>
 
     <config-file target="*-Info.plist" parent="NSPrivacyPolicyURL">
-      <string>FACEBOOK_PRIVACY_POLICY_PLACEHOLDER</string>
+      <string>$FACEBOOKPRIVACYPOLICYURL</string>
     </config-file>
 
   </platform>
 
-  <!-- ================== ANDROID ================== -->
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
@@ -121,19 +113,17 @@
 
     <source-file src="src/android/FBAnalytics.java" target-dir="src/com/fb/analytics/" />
 
-    <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+    <framework src="com.facebook.android:facebook-android-sdk:16.0.0" />
 
-    <!-- Android Preferences -->
-    <preference name="FacebookAppID" />
-    <preference name="FacebookClientToken" />
-    <preference name="FacebookDisplayName" />
-    <preference name="FacebookPrivacyPolicyURL" />
-    <preference name="FacebookURLScheme" />
+    <preference name="FACEBOOKAPPID" />
+    <preference name="FACEBOOKCLIENTTOKEN" />
+    <preference name="FACEBOOKDISPLAYNAME" />
+    <preference name="FACEBOOKPRIVACYPOLICYURL" />
+    <preference name="FACEBOOKURLSCHEME" />
 
-    <!-- Manifest -->
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
-      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="FACEBOOK_APP_ID_PLACEHOLDER" />
-      <meta-data android:name="com.facebook.sdk.ClientToken" android:value="FACEBOOK_CLIENT_TOKEN_PLACEHOLDER" />
+      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="$FACEBOOKAPPID" />
+      <meta-data android:name="com.facebook.sdk.ClientToken" android:value="$FACEBOOKCLIENTTOKEN" />
     </config-file>
 
   </platform>

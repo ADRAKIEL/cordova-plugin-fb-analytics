@@ -5,14 +5,12 @@
 
 @implementation FBAnalytics
 
-#pragma mark - Cordova Plugin Initialization
-// Initializes the Facebook SDK when the plugin is loaded.
+#pragma mark - Cordova Plugin Init
 - (void)pluginInitialize {
     [FBSDKApplicationDelegate.sharedInstance initializeSDK];
 }
 
-#pragma mark - Parameter Normalization
-// Converts only valid NSString/NSNumber values to a dictionary accepted by FBSDK.
+#pragma mark - Helpers
 - (NSMutableDictionary<NSString *, id> *)convertParams:(NSDictionary *)params {
     NSMutableDictionary<NSString *, id> *converted = [NSMutableDictionary dictionary];
 
@@ -31,7 +29,6 @@
 }
 
 #pragma mark - Log Event
-// Logs a standard Facebook App Event.
 - (void)logEvent:(CDVInvokedUrlCommand*)command {
 
     NSString *eventName = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -50,7 +47,6 @@
 
     NSMutableDictionary *convertedParams = [self convertParams:params];
 
-    // ⭐ FBSDK 13+ → singleton instance
     [[FBSDKAppEvents shared] logEvent:eventName parameters:convertedParams];
 
     CDVPluginResult *result =
@@ -60,7 +56,6 @@
 }
 
 #pragma mark - Log Purchase
-// Logs a purchase event with amount, currency, and optional parameters.
 - (void)logPurchase:(CDVInvokedUrlCommand*)command {
 
     NSNumber *amount = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -83,7 +78,6 @@
 
     NSMutableDictionary *convertedParams = [self convertParams:params];
 
-    // ⭐ FBSDK 13+ → singleton instance
     [[FBSDKAppEvents shared] logPurchase:[amount doubleValue]
                                  currency:currency
                                parameters:convertedParams];
@@ -94,8 +88,7 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 }
 
-#pragma mark - Conversion Value (SKAdNetwork)
-// SKAdNetwork conversion values are not supported in this SDK version.
+#pragma mark - Conversion Value (SKAN)
 - (void)setConversionValue:(CDVInvokedUrlCommand*)command {
 
     NSNumber *value = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -115,7 +108,6 @@
 }
 
 #pragma mark - Funnel Step
-// Logs a funnel step as a prefixed event name.
 - (void)logFunnelStep:(CDVInvokedUrlCommand*)command {
 
     NSString *stepName = command.arguments.count > 0 ? command.arguments[0] : nil;
@@ -136,7 +128,6 @@
 
     NSString *eventName = [NSString stringWithFormat:@"funnel_%@", stepName];
 
-    // ⭐ FBSDK 13+ → singleton instance
     [[FBSDKAppEvents shared] logEvent:eventName parameters:convertedParams];
 
     CDVPluginResult *result =
